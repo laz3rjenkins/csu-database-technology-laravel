@@ -5,7 +5,8 @@
     transform: translate(-50%,-50%);
     border: 2px solid black;
     border-radius: 10px;
-    height: 300px;
+    height: max-content;
+    min-height: 300px;
     width: 300px;
 }
 
@@ -34,7 +35,8 @@ h1 {
 
 .btn_submit{
     height: 29px;
-    width: 70px;
+    width: max-content;
+    min-width: 70px;
 }
 
 .input-form input {

@@ -13,8 +13,11 @@ use \App\Http\Controllers\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// TODO: навесить мидлваер, который проверяет автризацию, начать верстать главную страницу
 Route::get('/', [HomeController::class, 'index'])->name('main_page');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
+
+
 Route::post('/authorize', [LoginController::class, 'authorizeHandler'])->name('auth');
+Route::post('/reg', [LoginController::class, 'registerHandler'])->name('reg');
