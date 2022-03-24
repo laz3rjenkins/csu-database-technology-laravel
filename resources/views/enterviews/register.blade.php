@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <form method="POST" action="{{route('reg')}}" class="form">
-            <div id="container" class="container">
+            <div id="container" class="container_own">
                 <h1>Регистрация</h1>
                 @if(count($errors) > 0)
                 <div style="background: #f20c0c;border-radius: 15px;padding: 15px;margin-bottom: 15px;">
@@ -30,6 +30,11 @@
                 </div>
                 <div class="input-form">
                     <input name="last_name" type="text" placeholder="Фамилия" value="{{old('last_name')}}"/>
+                </div>
+                <div class="input-form">
+                    <input type="hidden" name="jobgiver" value="0" />
+                    <input type="checkbox" name="jobgiver" value="1" />
+                    <p>Я работодатель</p>
                 </div>
                 <div class="input-form">
                     <input name="bdate" type="date" placeholder="Дата рождения" value="{{old('bdate')}}"/>

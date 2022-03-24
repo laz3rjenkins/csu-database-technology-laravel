@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Faker\Generator;
 
 class LoginController extends Controller
 {
@@ -63,7 +65,7 @@ class LoginController extends Controller
         }
 
         $userdata = $validatedFields->validated();
-        $userdata['bdate'] = $lastupdated = date('Y-m-d H:i:s');
+        $userdata['bdate'] = date('Y-m-d H:i:s');
         $userdata['password'] = md5($userdata['password']);
         $user = User::create($userdata);
 
@@ -71,4 +73,37 @@ class LoginController extends Controller
         return redirect()->back()->with('success', 'Registered!');
     }
 
+    public function Logout(){
+        Auth::logout();
+    }
+
+    public function FakeUsers(){
+        //$.post('/fake_users', data , function(res){console.log(res);})
+        /*
+         var data = {_token: "AekDKMUXvYIbR1W8sRK0pXmlLu4a6bWFIIm6qBem"}
+         */
+        $faker = Factory::create();
+        for ($i = 0; $i < 15; $i++){
+            $userdata = [];
+            $first_name = $faker->firstName;
+            $last_name = $faker->lastName;
+            $login = $first_name . "_" . $last_name;
+            $userdata['exp'] = rand(2, 50);
+            $userdata['login'] = $login;
+            $userdata['first_name'] = $first_name;
+            $userdata['email'] = $faker->email;
+            $userdata['last_name'] = $last_name;
+            $userdata['bdate'] = $faker->date;
+            $userdata['password'] = md5($faker->password);
+            $users = User::create([
+                'login' => $userdata['login'],
+                'first_name' => $userdata['first_name'],
+                'email' => $userdata['email'],
+                'last_name' => $userdata['last_name'],
+                'bdate' => $userdata['bdate'],
+                'exp' => $userdata['exp'],
+                'password' => $userdata['password']
+            ]);
+        }
+    }
 }

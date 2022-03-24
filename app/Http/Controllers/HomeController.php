@@ -9,8 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $role = Auth::user()->isAdmin();
-        Auth::logout();
-        return view('home.index');
+        //$role = Auth::user()->isAdmin();
+        return view('news.index');
     }
 }
