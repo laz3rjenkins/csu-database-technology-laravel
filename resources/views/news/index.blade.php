@@ -26,34 +26,11 @@
     </style>
 </head>
 <body>
-<header class="p-3 mb-3 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{route('main_page')}}" class="nav-link px-2 link-dark">Новости</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
-            </ul>
-            <div class="dropdown text-end">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://hornews.com/upload/images/blank-avatar.jpg" alt="no avatar" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
-                    <li><a class="dropdown-item" href="#">Избранные вакансии</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="javascript:void(0)" onclick="logout()">Выйти</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+@include('layouts.header')
 <div class="container">
-<div style="position: relative;top: 50%;left: 25%;">
-    <div class="row  row-cols-1 row-cols-md-2 g-4">
+<div style="/*position: relative;top: 50%;left: 25%;*/">
+    <h1 style="margin-left: 25%;">Новости</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
         <div class="col">
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
@@ -66,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="row  row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
         <div class="col">
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
@@ -79,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div class="row  row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
         <div class="col">
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
@@ -92,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div class="row  row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
         <div class="col">
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
@@ -106,26 +83,6 @@
         </div>
     </div>
 </div>
-<footer class="py-3 my-4" style="position: relative;bottom: 0;width: 100%; padding-bottom: 0!important; margin-bottom: 0 !important;">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Новости</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Каталог вакансий</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Личный кабинет</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Избранные вакансии</a></li>
-    </ul>
-    <p class="text-center text-muted">&copy; 2022 Милехин Алексей МТ-301</p>
-</footer>
-
-
-<script>
-    function logout(){
-        let data = {
-            _token: "{{csrf_token()}}"
-        }
-        $.post('/logout', data, function(res){
-            window.location.reload();
-        });
-    }
-</script>
+    @include('layouts.footer')
 </body>
 </html>

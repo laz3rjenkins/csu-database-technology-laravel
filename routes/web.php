@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\LoginController;
@@ -22,7 +23,11 @@ Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/logout', [LoginController::class, 'Logout'])->name('logout');
 
 Route::group(['middleware'=>['check_auth']], function(){
-    Route::get('/', [HomeController::class, 'index'])->name('main_page');
+    Route::get('/news', [HomeController::class, 'index'])->name('main_page');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+
+    //Route::any('/', [HomeController::class, 'index']);
 });
 
 Route::post('/fake_users', [LoginController::class, 'FakeUsers']);
