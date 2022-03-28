@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">--}}
     <title>Профиль</title>
     <style>
         body {
@@ -43,6 +43,9 @@
             color: #fff;
             cursor: pointer;
             border: solid 1px #BA68C8
+        }
+        .became-admin{
+            background: #06ff0687;
         }
     </style>
     <link rel="stylesheet" href="/css/headers.css">
@@ -99,15 +102,72 @@
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+        <div class="col-md-4" style="max-height: 660px;">
+            @if($user->isAdmin())
+            <div class="" style="padding: 0;border: 1px solid black; height: 100%; overflow: scroll;">
+{{--                <div style="border: 1px solid black; width: 100%; height: 75px; padding: 5px;">--}}
+{{--                    <span>Имя</span> <span>Фамилия</span> <span>email</span>--}}
+{{--                    <br/>--}}
+{{--                    <button type="button" class="btn btn-primary btn-sm">Назначить администратором</button>--}}
+{{--                </div>--}}
+                @foreach($allUsers as $usr)
+                    <div style="border: 1px solid black; width: 100%; height: 75px; padding: 5px;" class="@if($usr->isAdmin())   @endif">
+                        <span>{{$usr->first_name}}</span> <span>{{$usr->last_name}}</span> <span>{{$usr->email}}</span>
+                        <br/>
+                        @if($usr->isAdmin() == false)
+                            <button type="button" class="btn btn-primary btn-sm" value="{{$usr->id}}" onclick="makeHimAdmin(value)">Назначить администратором</button>
+                        @else
+                            <div style="display: inline-flex;">
+                            <span style="color: green; margin-right: 15px;">Назначен администратором</span>
+                                <div onclick="disableAdmin(id)" id="{{$usr->id}}" style="border: 2px solid red; border-radius: 100%; width: 30px; height: 30px; text-align: center; padding: 0;" >
+                                    <span>X</span>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
             </div>
+                <div class="d-flex justify-content-center">
+                    {!! $allUsers->links('paginator.paginate') !!}
+                </div>
+            @endif
         </div>
     </div>
 </div>
 @include('layouts.footer')
+<script>
+    function makeHimAdmin(id){
+        let isConfirmed = confirm('Сделать этого пользователя администратором?')
+        if(isConfirmed){
+            let data = {
+                _token: "{{csrf_token()}}",
+                id: id
+            }
+            $.post('/set_admin', data, function (res){
+                if(res.status === 200){
+                    window.location.reload();
+                }
+                else{
+                    alert("Произошла ошибка.");
+                }
+            });
+        }
+    }
+
+    function disableAdmin(id){
+        let data = {
+            _token: "{{csrf_token()}}",
+            id: id
+        }
+        $.post('/disable_admin', data, function (res) {
+            if (res.status === 200) {
+                window.location.reload();
+            } else {
+                alert("Произошла ошибка.");
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
