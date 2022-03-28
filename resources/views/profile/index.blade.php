@@ -143,7 +143,7 @@
                 _token: "{{csrf_token()}}",
                 id: id
             }
-            $.post('/set_admin', data, function (res){
+            $.post('{{route('setadmin')}}', data, function (res){
                 if(res.status === 200){
                     window.location.reload();
                 }
@@ -159,7 +159,7 @@
             _token: "{{csrf_token()}}",
             id: id
         }
-        $.post('/disable_admin', data, function (res) {
+        $.post('{{route('disadmin')}}', data, function (res) {
             if (res.status === 200) {
                 window.location.reload();
             } else {
