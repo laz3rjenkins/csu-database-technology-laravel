@@ -8,7 +8,11 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{route('main_page')}}" class="nav-link px-2 link-dark">Новости</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
+                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                    <li><a href="{{route('add_news')}}" class="nav-link px-2 link-dark">Добавить новость</a></li>
+                @endif
             </ul>
+
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://hornews.com/upload/images/blank-avatar.jpg" alt="no avatar" width="32" height="32" class="rounded-circle">
@@ -23,7 +27,7 @@
         </div>
     </div>
 </header>
-
+{{--todo: https://getbootstrap.com/docs/4.0/components/modal/      modal window--}}
 <script>
     function logout(){
         let data = {

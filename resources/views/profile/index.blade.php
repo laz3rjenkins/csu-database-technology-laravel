@@ -57,6 +57,18 @@
 <body>
 @include('layouts.header')
 <div class="container rounded bg-white mt-5 mb-5">
+    @if(count($errors) > 0)
+        <div style="background: #f20c0c;border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+            @foreach($errors->all() as $error)
+                <p>{{$error}}</p>
+            @endforeach
+        </div>
+    @endif
+    @if(session()->has('success'))
+        <div style="background: rgba(37,229,8,0.4);border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+            {{session()->get('success')}}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -65,53 +77,61 @@
                 <span class="text-black-50">{{$user->email}}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
+            <form action="{{route('edit_profile')}}" method="post">
+                @csrf
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Name</label>
+                            <input name="first_name" type="text" class="form-control" value="{{$user->first_name}}" required /></div>
+                        <div class="col-md-6"><label class="labels">Surname</label>
+                            <input name="last_name" type="text" class="form-control" value="{{$user->last_name}}" required /></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Email</label>
+                            <input name="email" type="email" class="form-control" value="{{$user->email}}" required />
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Birth day</label>
+                            <input class="form-control" name="bdate" type="date" value="{{$user->bdate}}" required />
+                        </div>
+                        <div class="col-md-12"><label class="labels">Login</label>
+                            <input name="login" type="text" class="form-control" value="{{$user->login}}" required />
+                        </div>
+                        <div class="col-md-12"><label class="labels">Experience</label>
+                            <input name="exp" type="text" class="form-control" value="{{$user->exp}}" required />
+                        </div>
+                        <div class="col-md-12"><label class="labels">Я работодатель</label>
+                            <input class="form-control" type="hidden" name="jobgiver" value="{{!$user->jobgiver}}" />
+                            <input type="checkbox" name="jobgiver" name="jobgiver" value="{{$user->jobgiver}}" @if($user->jobgiver == 1) checked @endif />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">New password</label>
+                            <input type="password" class="form-control" name="new_password">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Confirm new password</label>
+                            <input type="password" class="form-control" name="confirmed_new_password">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label>
-                        <input type="text" class="form-control" placeholder="first name" value="{{$user->first_name}}"></div>
-                    <div class="col-md-6"><label class="labels">Surname</label>
-                        <input type="text" class="form-control" value="{{$user->last_name}}" placeholder="surname"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <label class="labels">Email</label>
-                        <input type="email" class="form-control" placeholder="Email" value="{{$user->email}}">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="labels">Birth day</label>
-                        <input class="form-control" name="bdate" type="date" placeholder="Birth day" value="{{$user->bdate}}"/>
-                    </div>
-                    <div class="col-md-12"><label class="labels">Login</label>
-                        <input type="text" class="form-control" placeholder="Login" value="{{$user->login}}">
-                    </div>
-                    <div class="col-md-12"><label class="labels">Experience</label>
-                        <input type="text" class="form-control" placeholder="Expirience" value="{{$user->exp}}">
-                    </div>
-                    <div class="col-md-12"><label class="labels">Я работодатель</label>
-                        <input class="form-control" type="hidden" name="jobgiver" value="{{!$user->jobgiver}}" />
-                        <input type="checkbox" name="jobgiver" name="jobgiver" value="{{$user->jobgiver}}" @if($user->jobgiver == 1) checked @endif />
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">New password</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">Confirm new password</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-            </div>
+            </form>
         </div>
         <div class="col-md-4" style="max-height: 660px;">
             @if($user->isAdmin())
-            <div class="" style="padding: 0;border: 1px solid black; height: 100%; overflow: scroll;">
+            <div class="" style="padding: 0;height: 100%; overflow: scroll; overflow-x: hidden; margin-bottom: 15px;">
 {{--                <div style="border: 1px solid black; width: 100%; height: 75px; padding: 5px;">--}}
 {{--                    <span>Имя</span> <span>Фамилия</span> <span>email</span>--}}
 {{--                    <br/>--}}
 {{--                    <button type="button" class="btn btn-primary btn-sm">Назначить администратором</button>--}}
 {{--                </div>--}}
                 @foreach($allUsers as $usr)
-                    <div style="border: 1px solid black; width: 100%; height: 75px; padding: 5px;" class="@if($usr->isAdmin())   @endif">
+                    <div style="border-bottom: 1px solid black; width: 100%; height: 75px; padding: 5px;" class="@if($usr->isAdmin())   @endif">
                         <span>{{$usr->first_name}}</span> <span>{{$usr->last_name}}</span> <span>{{$usr->email}}</span>
                         <br/>
                         @if($usr->isAdmin() == false)

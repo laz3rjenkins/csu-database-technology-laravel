@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAuth
+class AdminChecker
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class CheckAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() == false){
-            return redirect()->to(route('login'));
+        if(Auth::user()->isAdmin() == false && Auth::check()){
+            return redirect()->to('news');
         }
         return $next($request);
     }

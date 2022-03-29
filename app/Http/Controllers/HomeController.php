@@ -12,4 +12,8 @@ class HomeController extends Controller
         //$role = Auth::user()->isAdmin();
         return view('news.index');
     }
+
+    public function addNews(){
+        return view('news.add');
+    }
 }

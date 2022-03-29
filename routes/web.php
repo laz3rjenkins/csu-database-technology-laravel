@@ -24,7 +24,11 @@ Route::post('/logout', [LoginController::class, 'Logout'])->name('logout');
 
 Route::group(['middleware'=>['check_auth']], function(){
     Route::get('/news', [HomeController::class, 'index'])->name('main_page');
+    Route::get('/news/add', [HomeController::class, 'addNews'])->name('add_news')->middleware('check_admin');
+
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/edit_profile', [ProfileController::class, 'editProfile'])->name('edit_profile');
     Route::post('/set_admin', [ProfileController::class, 'setAdmin'])->name('setadmin');
     Route::post('/disable_admin', [ProfileController::class, 'disableAdmin'])->name('disadmin');
     //Route::any('/', [HomeController::class, 'index']);
