@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function isUsualUser(){
         return $this->role == self::USER_ROLE;
     }
+
+    public function isJobGiver() : bool{
+        return $this->jobgiver;
+    }
 }

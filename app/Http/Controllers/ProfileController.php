@@ -12,8 +12,6 @@ class ProfileController extends Controller
     public function index(){
         $user = Auth::user();
         $allUsers = User::where('id', '!=', $user->id)->orderBy('role', 'desc')->paginate(10);
-        // todo: также сделать попап с джейквери и дать возможность публиковать новости
-        // также сделать возможность менять какие-нибудь данные в профиле
         return view('profile.index', ['user' => $user, 'allUsers' => $allUsers]);
     }
 

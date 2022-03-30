@@ -15,9 +15,6 @@ use App\Http\Middleware\CheckAuth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// TODO: сделать профиль, для админа возможность назначать новых админов аяксом, сделать полный профиль для пользователя
-// сверстать хедер для главной страницы, продумать ее структуру
-// TODO: навесить мидлваер, который проверяет автризацию, начать верстать главную страницу
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/logout', [LoginController::class, 'Logout'])->name('logout');
@@ -25,7 +22,7 @@ Route::post('/logout', [LoginController::class, 'Logout'])->name('logout');
 Route::group(['middleware'=>['check_auth']], function(){
     Route::get('/news', [HomeController::class, 'index'])->name('main_page');
     Route::get('/news/add', [HomeController::class, 'addNews'])->name('add_news')->middleware('check_admin');
-
+    Route::post('/add_news_item', [HomeController::class, 'addNewsItem'])->name('add_news_item');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/edit_profile', [ProfileController::class, 'editProfile'])->name('edit_profile');

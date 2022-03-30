@@ -12,27 +12,40 @@
 @include('layouts.header')
 <div class="container">
     <div class="row">
+        @if(count($errors) > 0)
+            <div style="background: #f20c0c;border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+                @foreach($errors->all() as $error)
+                    <p>{{$error}}</p>
+                @endforeach
+            </div>
+        @endif
+            @if(session()->has('success'))
+                <div style="background: rgba(37,229,8,0.4);border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+                    {{session()->get('success')}}
+                </div>
+            @endif
         <h3>Добавить новость</h3>
-        <form>
+        <form method="post" action="{{route('add_news_item')}}" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
-                <label for="header_news">Заголовок</label>
-                <input type="text" class="form-control" id="header_news" />
+                <label for="header_news">Заголовок*</label>
+                <input required type="text" class="form-control" id="header_news" name="header_news"/>
             </div>
 
             <div class="form-group">
-                <label for="text_news">Текст</label>
-                <textarea class="form-control" id="text_news" rows="3"></textarea>
+                <label for="text_news">Текст*</label>
+                <textarea required class="form-control" id="text_news" rows="3" name="text_news"></textarea>
             </div>
             <div class="form-group">
-                <label for="file_news">Картинка</label>
-                <input type="file" class="form-control" id="file_news" />
+                <label for="file_news">Картинка*</label>
+                <input required type="file" class="form-control" id="file_news" accept="image/png, image/jpeg" name="file_news" />
             </div>
             <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Опубликовать новость</button>
         </form>
     </div>
-    <div class="row mt-5 mb-5">
+    <div class="row mt-5 mb-5" style="justify-content: center;">
         <h2>Мои новости</h2>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -40,7 +53,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -48,7 +61,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -56,7 +69,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -64,7 +77,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -72,7 +85,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -80,14 +93,15 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-        </div><div class="card" style="width: 18rem;">
+        </div>
+        <div class="card" style="width: 18rem; margin: 5px;">
             <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -98,7 +112,7 @@
 
 
     </div>
-
+@include('layouts.footer')
 </div>
 </body>
 </html>
