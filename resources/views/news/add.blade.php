@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />-->
 </head>
 <body>
 @include('layouts.header')
@@ -43,76 +46,68 @@
             <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Опубликовать новость</button>
         </form>
     </div>
-    <div class="row mt-5 mb-5" style="justify-content: center;">
-        <h2>Мои новости</h2>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;">
-            <img class="card-img-top" src="https://sun3-16.userapi.com/impg/isLJ1CJ7bfDKbob3VCjNosUhosD_Di0OOgQTBw/CXXqVvn5wpw.jpg?size=670x440&quality=95&sign=4aec0a3df51dce04db3cb1533b9a9144&type=album" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+    <div class="row mt-5 mb-5">
+        <h2>Мои новости ({{$count}})</h2>
+        {{$news->links('paginator.paginate')}}
+        @foreach($news as $article)
+            <div class="card" style="width: 18rem; margin: 5px;" id="{{$article->id}}" onclick="openModal(id)">
+                <img class="card-img-top" src="{{asset('/storage/'.$article->image_url)}}" alt="Card image cap" style="width: 260px; height: 150px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{$article->header}}</h5>
+                    <div>
+                        <p class="card-text" style="display: block;">{{$article->article_text}}</p>
+                    </div>
 
-
+                    <button id="{{$article->id}}" onclick="openModal(id)" class="btn btn-primary" style="bottom: 15px;">Прочитать</button>
+                </div>
+            </div>
+        @endforeach
+        {{$news->links('paginator.paginate')}}
     </div>
 @include('layouts.footer')
 </div>
+<div class="modal fade" id="jq_modal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_title"></h5>
+                <button onclick="closeModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body">
+
+                <div id="spinner" class="spinner-border" role="status" style="margin-left: 45%;">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id){
+        $('#jq_modal').modal('show');
+        $('#spinner').show();
+        let data = {
+            id: id,
+            _token: "{{csrf_token()}}"
+        }
+        let url = "/get_article/" + id;
+        $.post(url, data, function (res){
+            $('#modal_title').text(res.article.header);
+
+            let imgUrl = "{{asset('/storage/')}}/" + res.article.image_url;
+            $('#modal_body').text(res.article.article_text).prepend('<img id="modal_img" width="450" height="300" src="' + imgUrl + '">');
+            $('#spinner').hide();
+        });
+    }
+    function closeModal(){
+        $('#jq_modal').modal('hide');
+    }
+</script>
 </body>
 </html>

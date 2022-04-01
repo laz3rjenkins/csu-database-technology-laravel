@@ -11,8 +11,12 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // todo: сделать теперь чтобы через джейквери открывались новости в новостях и можно переходить к вакансиям
         $news = Article::select('*')->orderBy('created_at', 'desc')->paginate(5);
         foreach ($news as $article){
+            if(strlen($article->article_text) > 400){
+                $article->article_text = mb_substr($article->article_text, 0, 365, 'UTF-8') . '...';
+            }
             $timestamp = strtotime($article->created_at);
             $published = date('d.m.Y H:i', $timestamp);
             $article->news_created = $published;
@@ -23,8 +27,16 @@ class HomeController extends Controller
     }
 
     public function addNews(){
-        // тут передавать только новости автора
-        return view('news.add');
+        $news = Article::select('*')->where('author_id', '=', \auth()->id())->orderBy('created_at', 'desc')->paginate(8);
+        $newsCount = Article::where('author_id', '=', \auth()->id())->count();
+        foreach ($news as $article){
+            $article->header = mb_substr($article->header, 0, 35, 'UTF-8') .'...';
+            $article->article_text = mb_substr($article->article_text, 0, 91, 'UTF-8') . '...';
+        }
+        return view('news.add',[
+            'news' => $news,
+            'count' => $newsCount
+        ]);
     }
 
     public function addNewsItem(Request $request): \Illuminate\Http\RedirectResponse
@@ -47,5 +59,10 @@ class HomeController extends Controller
             'image_url' => $filePath
         ]);
         return redirect()->back()->with('success', 'Новость успешно добавлена');
+    }
+
+    public function getArticleJson($id){
+        $article = Article::find($id);
+        return response()->json(['article' => $article]);
     }
 }

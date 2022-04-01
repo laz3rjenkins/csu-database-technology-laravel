@@ -23,6 +23,7 @@ Route::group(['middleware'=>['check_auth']], function(){
     Route::get('/news', [HomeController::class, 'index'])->name('main_page');
     Route::get('/news/add', [HomeController::class, 'addNews'])->name('add_news')->middleware('check_admin');
     Route::post('/add_news_item', [HomeController::class, 'addNewsItem'])->name('add_news_item');
+    Route::post('/get_article/{article_id}', [HomeController::class, 'getArticleJson'])->name('get_article');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/edit_profile', [ProfileController::class, 'editProfile'])->name('edit_profile');
