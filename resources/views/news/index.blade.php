@@ -37,13 +37,13 @@
         @foreach($news as $article)
             <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
                 <div class="col">
-                    <div class="card">
+                    <div class="card" id="{{$article->id}}" onclick="openModal(id)">
                         <img width="100%" height="320" src="{{asset('/storage/'.$article->image_url)}}" class="bd-placeholder-img card-img-top">
                         <div class="card-body">
                             <p class="text-small" style="margin: 0;text-align: right;">{{$article->news_created}}</p>
                             <h5 class="card-title">{{$article->header}}</h5>
                             <p class="card-text">{{$article->article_text}}</p>
-                            <a href="#" class="btn btn-primary">Прочитать</a>
+                            <button id="{{$article->id}}" onclick="openModal(id)" class="btn btn-primary">Прочитать</button>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,9 @@
             </div>
         @endif
     </div>
-</div>
     @include('layouts.footer')
+</div>
+
+@include('news.news_modal')
 </body>
 </html>

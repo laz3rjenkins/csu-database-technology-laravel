@@ -65,11 +65,11 @@ class LoginController extends Controller
         }
 
         $userdata = $validatedFields->validated();
-        $userdata['bdate'] = date('Y-m-d H:i:s');
+        $userdata['bdate'] = $request->bdate;//date('Y-m-d H:i:s');
         $userdata['password'] = md5($userdata['password']);
         $user = User::create($userdata);
 
-
+        //dd($userdata, $request->all());
         return redirect()->back()->with('success', 'Registered!');
     }
 

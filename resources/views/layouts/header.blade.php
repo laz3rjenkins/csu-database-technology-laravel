@@ -3,10 +3,11 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{route('main_page')}}" class="nav-link px-2 link-dark">Новости</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
                 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                     <li><a href="{{route('add_news')}}" class="nav-link px-2 link-dark">Добавить новость</a></li>
+                    <li><a href="{{route('add_vacancy_view')}}" class="nav-link px-2 link-dark">Создать вакансию</a></li>
                 @endif
+                <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
             </ul>
 
             <div class="dropdown text-end">

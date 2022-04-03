@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // todo: сделать теперь чтобы через джейквери открывались новости в новостях и можно переходить к вакансиям
         $news = Article::select('*')->orderBy('created_at', 'desc')->paginate(5);
         foreach ($news as $article){
             if(strlen($article->article_text) > 400){
