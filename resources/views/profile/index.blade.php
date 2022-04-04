@@ -114,9 +114,14 @@
                                 <input name="exp" type="text" class="form-control" value="{{$user->exp}}" required />
                             </div>
                             <div class="col-md-12"><label class="labels">Я работодатель</label>
-                                <input class="form-control" type="hidden" name="jobgiver" value="{{!$user->jobgiver}}" />
-                                <input type="checkbox" name="jobgiver" name="jobgiver" value="{{$user->jobgiver}}" @if($user->jobgiver == 1) checked @endif />
+                                <input class="form-control" type="hidden" name="jobgiver" />
+                                <input type="checkbox" name="jobgiver" @if($user->jobgiver == 1) checked @endif />
                             </div>
+                            @if($user->jobgiver == 1)
+                                <div class="col-md-12"><label class="labels">Название компании</label>
+                                    <input type="text" name="company_name" class="form-control" value="{{$user->company_name}}" />
+                                </div>
+                            @endif
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6"><label class="labels">New password</label>
@@ -166,6 +171,17 @@
     @include('layouts.footer')
 </div>
 <script>
+    function setValueInChecbox(){
+        let value = document.getElementById('check').value;
+        if(value === 0){
+            document.getElementById('check').value = 1;
+        }
+        else{
+            document.getElementById('check').value = 0;
+        }
+        console.log("current value = ", document.getElementById('check').value);
+    }
+
     function makeHimAdmin(id){
         let isConfirmed = confirm('Сделать этого пользователя администратором?')
         if(isConfirmed){

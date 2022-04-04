@@ -1,6 +1,7 @@
 @extends('vacancies.index')
 
 @section('includes')
+    <title>Создать вакансию</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/headers.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
@@ -20,7 +21,43 @@
     </script>
 @endsection
 @section('content')
-<div style="width: 100%; min-height: 500px;">
+<div style="width: 80%; min-height: 500px;" class="container">
+    <div class="row">
+        @if(count($errors) > 0)
+            <div style="background: #f20c0c;border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+                @foreach($errors->all() as $error)
+                    <p>{{$error}}</p>
+                @endforeach
+            </div>
+        @endif
+        @if(session()->has('success'))
+            <div style="background: rgba(37,229,8,0.4);border-radius: 15px;padding: 15px;margin-bottom: 15px;">
+                {{session()->get('success')}}
+            </div>
+        @endif
+        <h3>{{$formTitle}}</h3>
+        <form method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="header_news">Название компании*</label>
+                <input required type="text" class="form-control" id="header_news" name="header_news"/>
+            </div>
 
+            <div class="form-group">
+                <label for="text_news">Описание*</label>
+                <textarea required class="form-control" id="text_news" rows="3" name="text_news"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="file_news">Картинка*</label>
+                <input required type="file" class="form-control" id="file_news" accept="image/png, image/jpeg" name="file_news" />
+            </div>
+            название вакансии
+            зп
+            название компании
+            требуемый опыт работы
+            описание вакансии
+            <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Опубликовать новость</button>
+        </form>
+    </div>
 </div>
 @endsection
