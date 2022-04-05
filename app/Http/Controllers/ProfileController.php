@@ -37,6 +37,8 @@ class ProfileController extends Controller
         $user->jobgiver = $request->jobgiver;
         $user->bdate = $request->bdate;
         $user->login = $request->login;
+        if($request->jobgiver == 0)
+            $request->company_name = null;
         $user->company_name = $request->company_name;
         $user->save();
         if($request->get('new_password', null) != null && $request->get('confirmed_new_password', null) != null){

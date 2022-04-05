@@ -36,27 +36,61 @@
             </div>
         @endif
         <h3>{{$formTitle}}</h3>
-        <form method="post" enctype="multipart/form-data">
+        <form action="{{route('add_vacancy_item')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="header_news">Название вакансии*</label>
+                <input required
+                       type="text"
+                       class="form-control"
+                       id="header_news"
+                       name="name"/>
+            </div>
+            <div class="form-group">
+                <label for="header_news">Зарплата*</label>
+                <input required
+                       type="text"
+                       class="form-control"
+                       id="header_news"
+                       name="salary"
+                       placeholder="35000-90000"/>
+            </div>
+            <div class="form-group">
                 <label for="header_news">Название компании*</label>
-                <input required type="text" class="form-control" id="header_news" name="header_news"/>
+                <input required
+                       type="text"
+                       class="form-control"
+                       id="header_news"
+                       name="company_name"
+                       @if($creator->company_name != null) value="{{$creator->company_name}}" disabled @endif/>
+                @if($creator->company_name != null)
+                    <input type="hidden" value="{{$creator->company_name}}" name="company_name">
+                @endif
             </div>
 
             <div class="form-group">
-                <label for="text_news">Описание*</label>
-                <textarea required class="form-control" id="text_news" rows="3" name="text_news"></textarea>
+                <label for="select_picker">Требуемый опыт*</label><br/>
+                <select id="select_picker"
+                        name="expirience"
+                        class="selectpicker form-control" >
+                    <option value="0"></option>
+                    <option value="до 1 года">до 1 года</option>
+                    <option value="от 1 до 3 лет">от 1 до 3 лет</option>
+                    <option value="от 3 до 5 лет">от 3 до 5 лет</option>
+                    <option value="от 5 до 10 лет">от 5 до 10 лет</option>
+                    <option value="10 лет и более">10 лет и более</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="file_news">Картинка*</label>
-                <input required type="file" class="form-control" id="file_news" accept="image/png, image/jpeg" name="file_news" />
+                <label for="text_news">Описание вакансии*</label>
+                <textarea required
+                          class="form-control"
+                          id="text_news"
+                          rows="3"
+                          name="description"></textarea>
             </div>
-            название вакансии
-            зп
-            название компании
-            требуемый опыт работы
-            описание вакансии
-            <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Опубликовать новость</button>
+            <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Создать вакансию</button>
         </form>
     </div>
 </div>

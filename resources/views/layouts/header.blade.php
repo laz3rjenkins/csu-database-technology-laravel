@@ -8,6 +8,7 @@
                     <li><a href="{{route('add_vacancy_view')}}" class="nav-link px-2 link-dark">Создать вакансию</a></li>
                 @endif
                 <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">Почта</a></li>
             </ul>
 
             <div class="dropdown text-end">
