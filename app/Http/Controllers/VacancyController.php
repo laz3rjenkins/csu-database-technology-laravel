@@ -11,7 +11,7 @@ class VacancyController extends Controller
 {
     public function addVacancyView(){
         $creator = auth()->user();
-        $vacs = $creator->vacancies()->orderBy('created_at', 'desc')->get();
+        $vacs = $creator->vacancies()->withTrashed()->orderBy('created_at', 'desc')->get();
         return view('vacancies.create_vacancy',[
             'formTitle' => 'Добавить вакансию',
             'creator' => $creator,
@@ -40,5 +40,10 @@ class VacancyController extends Controller
         Vacancy::create($vacancy->toArray());
 
         return redirect()->back()->with('success', 'Вакансия успешно добавлена в каталог!');;
+    }
+
+    public function deleteVacancy($id){
+        Vacancy::find($id)->delete();
+        return response()->json(['status' => 'success']);
     }
 }

@@ -89,70 +89,45 @@
     <div class="row mt-5 mb-5">
         <h2>Мои вакансии ({{$vacs->count()}})</h2>
         @foreach($vacs as $vac)
-            <div class="card" style="width: 18rem; margin: 5px;" id="{{$vac->id}}" onclick="openModal(id)">
+            <div class="card" style="width: 18rem; margin: 5px;">
                 <div class="card-body">
                     <h5 class="card-title" style="min-height: 20px;">{{$vac->name}}</h5>
                     <p class="small-text disabled">{{$vac->company_name}}</p>
                     <p class="small-text disabled">требуемый опыт: {{$vac->expirience}}</p>
                     <p class="card-text" style="display: block;min-height: 96px;">{{$vac->salary}} тыс. рублей</p>
-
+                    @if($vac->deleted_at)
+                        <div
+                            style="position: absolute;left: 0; top: 55%; width: 100%; text-align: center; background: red;">
+                            Вакансия удалена</div>
+                    @else
                     <button id="1" onclick="openModal({{$vac->id}})" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
                     <button id="1" onclick="" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
-                    <button id="1" onclick="" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
+                    <button id="1" onclick="deleteVacancy({{$vac->id}})" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
+                    @endif
                 </div>
             </div>
         @endforeach
-        <div class="card" style="width: 18rem; margin: 5px;" id="1" onclick="">
-            <div class="card-body">
-                <h5 class="card-title" style="min-height: 20px;">Мойщик окон </h5>
-                <p class="small-text disabled">OOO Glinomes</p>
-                <p class="small-text disabled">требуемый опыт: 1-5 лет</p>
-                <p class="card-text" style="display: block;min-height: 96px;">35000-90000</p>
-
-                <button id="1" onclick="" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
-                <button id="1" onclick="" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
-                <button id="1" onclick="" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;" id="1" onclick="">
-            <div class="card-body">
-                <h5 class="card-title" style="min-height: 20px;">крановщик </h5>
-                <p class="small-text disabled">OOO Glinomes</p>
-                <p class="small-text disabled">требуемый опыт: 1-5 лет</p>
-                <p class="card-text" style="display: block;min-height: 96px;">35000-90000</p>
-
-                <div
-                    style="position: absolute;left: 0; top: 55%; width: 100%; text-align: center; background: red;">
-                    Вакансия удалена</div>
-
-                <button id="1" onclick="" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
-                <button id="1" onclick="" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
-                <button id="1" onclick="" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem; margin: 5px;" id="1" onclick="">
-            <div class="card-body">
-                <h5 class="card-title" style="min-height: 20px;">front-end developer </h5>
-                <p class="small-text disabled">OOO Glinomes</p>
-                <p class="small-text disabled">требуемый опыт: 1-5 лет</p>
-                <p class="card-text" style="display: block;min-height: 96px;">35000-90000</p>
-
-                <button id="1" onclick="" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
-                <button id="1" onclick="" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
-                <button id="1" onclick="" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
-            </div>
-        </div>
-
     </div>
 </div>
     @include('vacancies.vacancy_modal')
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-        function someFunc(){
-            console.log('created');
+    <script>
+        function deleteVacancy(id){
+            let conf = confirm('Удалить вакансию?');
+            if(conf === false){
+                return;
+            }
+
+            let data = {
+                _token: "{{csrf_token()}}",
+                id: id
+            }
+            let url = "/vacancies/delete/" + id;
+            $.post(url, data, function (res){
+                window.location.reload();
+            });
         }
-        someFunc();
     </script>
 @endsection

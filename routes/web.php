@@ -31,6 +31,7 @@ Route::group(['middleware'=>['check_auth']], function(){
     //вакансии
     Route::get('/vacancies/add', [VacancyController::class, 'addVacancyView'])->name('add_vacancy_view');
     Route::post('/vacancies/add_item', [VacancyController::class, 'addVacancyToTable'])->name('add_vacancy_item');
+    Route::post('/vacancies/delete/{id}', [VacancyController::class, 'deleteVacancy'])->name('delete_vac');
 });
 
 //Route::post('/fake_users', [LoginController::class, 'FakeUsers']);
