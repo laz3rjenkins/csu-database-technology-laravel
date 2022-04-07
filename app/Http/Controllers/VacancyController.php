@@ -11,9 +11,11 @@ class VacancyController extends Controller
 {
     public function addVacancyView(){
         $creator = auth()->user();
+        $vacs = $creator->vacancies()->orderBy('created_at', 'desc')->get();
         return view('vacancies.create_vacancy',[
             'formTitle' => 'Добавить вакансию',
-            'creator' => $creator
+            'creator' => $creator,
+            'vacs' => $vacs
         ]);
     }
 

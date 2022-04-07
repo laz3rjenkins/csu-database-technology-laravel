@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Vacancy;
 
 class User extends Authenticatable
 {
@@ -52,5 +53,9 @@ class User extends Authenticatable
 
     public function isJobGiver() : bool{
         return $this->jobgiver;
+    }
+
+    public function vacancies(){
+        return $this->hasMany(Vacancy::class, 'author_id');
     }
 }

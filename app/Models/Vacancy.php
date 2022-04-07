@@ -14,4 +14,8 @@ class Vacancy extends Model
     protected $fillable = [
         'name', 'salary', 'company_name', 'expirience', 'description', 'author_id'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'author_id', 'id');
+    }
 }
