@@ -46,4 +46,19 @@ class VacancyController extends Controller
         Vacancy::find($id)->delete();
         return response()->json(['status' => 'success']);
     }
+
+    public function getVacById($id){
+        $vac = Vacancy::where('id', '=', $id)->first();
+        $isCreator = $vac->author_id == \auth()->id();
+        $vac->is_creator = $isCreator;
+        return response()->json(['vacancy' => $vac]);
+    }
+
+    public function showVacancies(){
+        $vacs = Vacancy::where('id', '>', 0)->orderBy('created_at', 'desc')->paginate(8);
+        return view('vacancies.catalog',
+        [
+            'vacancies' => $vacs
+        ]);
+    }
 }

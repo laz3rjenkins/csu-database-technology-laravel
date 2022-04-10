@@ -30,8 +30,10 @@ Route::group(['middleware'=>['check_auth']], function(){
     //todo: защитить мидлевейром работодателя
     //вакансии
     Route::get('/vacancies/add', [VacancyController::class, 'addVacancyView'])->name('add_vacancy_view');
+    Route::get('/vacancies', [VacancyController::class, 'showVacancies'])->name('vacancy_show');
     Route::post('/vacancies/add_item', [VacancyController::class, 'addVacancyToTable'])->name('add_vacancy_item');
     Route::post('/vacancies/delete/{id}', [VacancyController::class, 'deleteVacancy'])->name('delete_vac');
+    Route::post('/get_vacancy/{id}', [VacancyController::class, 'getVacById'])->name('get_vac_item');
 });
 
 //Route::post('/fake_users', [LoginController::class, 'FakeUsers']);

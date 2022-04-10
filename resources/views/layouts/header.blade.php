@@ -6,7 +6,7 @@
                 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                     <li><a href="{{route('add_news')}}" class="nav-link px-2 link-dark">Добавить новость</a></li>
                 @endif
-                <li><a href="#" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
+                <li><a href="{{route('vacancy_show')}}" class="nav-link px-2 link-dark">Каталог вакансий</a></li>
                 @if(\Illuminate\Support\Facades\Auth::user()->isJobGiver())
                     <li><a href="{{route('add_vacancy_view')}}" class="nav-link px-2 link-dark">Создать вакансию</a></li>
                 @endif
