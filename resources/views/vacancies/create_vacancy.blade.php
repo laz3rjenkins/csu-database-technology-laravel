@@ -2,7 +2,6 @@
 
 @section('includes')
     <title>Создать вакансию</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
@@ -79,7 +78,8 @@
         </form>
     </div>
     <div class="row mt-5 mb-5">
-        <h2>Мои вакансии ({{$vacs->count()}})</h2>
+        <h2>Мои вакансии ({{$vacCount}})</h2>
+        {{$vacs->links('paginator.paginate')}}
         @foreach($vacs as $vac)
             <div class="card" style="width: 18rem; margin: 5px;">
                 <div class="card-body">
@@ -92,16 +92,18 @@
                             style="position: absolute;left: 0; top: 55%; width: 100%; text-align: center; background: red;">
                             Вакансия удалена</div>
                     @else
-                    <button id="1" onclick="openModal({{$vac->id}})" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
-                    <button id="1" onclick="" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
-                    <button id="1" onclick="deleteVacancy({{$vac->id}})" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
+                    <button onclick="openModal({{$vac->id}}, event)" class="btn btn-success btn-sm" style="bottom: 15px;">Read</button>
+                    <button onclick="openEditModal({{$vac->id}})" class="btn btn-primary btn-sm" style="bottom: 15px;">Edit</button>
+                    <button onclick="deleteVacancy({{$vac->id}})" class="btn btn-danger btn-sm" style="bottom: 15px;">Delete</button>
                     @endif
                 </div>
             </div>
         @endforeach
+        {{$vacs->links('paginator.paginate')}}
     </div>
 </div>
     @include('vacancies.vacancy_modal')
+    @include('vacancies.edit_vacancy_modal')
 @endsection
 
 @section('scripts')

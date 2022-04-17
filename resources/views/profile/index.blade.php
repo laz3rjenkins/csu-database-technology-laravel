@@ -179,7 +179,6 @@
         else{
             document.getElementById('check').value = 0;
         }
-        console.log("current value = ", document.getElementById('check').value);
     }
 
     function makeHimAdmin(id){

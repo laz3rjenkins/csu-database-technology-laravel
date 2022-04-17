@@ -10,6 +10,8 @@
         <div style="margin-left: 25%;">
         {{$vacancies->links('paginator.paginate')}}
         </div>
+{{--        @dd(auth()->user()->favvacs()->get());--}}
+
         @foreach($vacancies as $vac)
             <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 15px; justify-content: center;">
                 <div class="col">
@@ -22,7 +24,18 @@
                             <p class="card-title">требуемый опыт: {{$vac->expirience}}</p>
                             <p class="card-text">{{$vac->description}}</p>
                             <button id="{{$vac->id}}" class="btn btn-primary">Прочитать</button>
-                            <button id="fav" onclick="$('#fav').off('click'); makeFavorite({{$vac->id}})" class="btn btn-outline-secondary">В избранное</button>
+{{--                            @dd($vac->id, $favs);--}}
+                            @if(isFavoriteVacancie($vac->id, $favs))
+                                <button id="favorited"
+                                        onclick="makeUnfavorite({{$vac->id}})"
+                                        type="button"
+                                        class="btn btn-warning">В избранном</button>
+                            @else
+                            <button id="fav"
+                                    onclick="makeFavorite({{$vac->id}})"
+                                    class="btn btn-outline-secondary">
+                                В избранное</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -38,7 +51,24 @@
 @section('scripts')
 <script>
     function makeFavorite(id){
-        //todo: тут доделать возможность помечать их избранными
+        let data = {
+            _token: "{{csrf_token()}}",
+            id: id
+        };
+        let url = "/make_fav";
+        $.post(url, data, function (res){
+            window.location.reload();
+        });
+    }
+    function makeUnfavorite(id){
+        let data = {
+            _token: "{{csrf_token()}}",
+            id: id
+        };
+        let url = "/make_unfav/" + id;
+        $.post(url, data, function (res){
+            window.location.reload();
+        });
     }
 </script>
 @endsection

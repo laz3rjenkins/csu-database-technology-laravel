@@ -58,4 +58,10 @@ class User extends Authenticatable
     public function vacancies(){
         return $this->hasMany(Vacancy::class, 'author_id');
     }
+
+    public function favvacs(){
+        return $this->hasMany(FavVacs::class)
+            ->join('vacancies', 'vac_id', 'vacancies.id')
+            ->select('vacancies.*');
+    }
 }

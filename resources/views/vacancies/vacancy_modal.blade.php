@@ -1,4 +1,4 @@
-<div onclick="clearText()" class="modal fade" id="jq_modal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div onclick="clearText(event)" class="modal fade" id="jq_modal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,16 +17,15 @@
                 </div>
             </div>
             <div class="modal-footer" id="modal_footer">
-                <button onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button id="close_btn" onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
-{{--            todo: добавить кнопку написать в модалке вакансии--}}
         </div>
     </div>
 </div>
 
 <script>
     function openModal(id, event){
-        if(event.target.id === "fav"){
+        if(event.target.id === "fav" || event.target.id === "favorited"){
             return;
         }
         $('#jq_modal').modal('show');
@@ -37,7 +36,6 @@
         }
         let url = "/get_vacancy/" + id;
         $.post(url, data, function (res){
-            console.log(res);
             $('#modal_title').text(res.vacancy.name);
             $('#modal_text').append('<p class="small-text disabled">' + res.vacancy.company_name  + '</p>'
                 + '<p class="small-text disabled">требуемый опыт: ' + res.vacancy.expirience  + '</p>'
@@ -45,14 +43,47 @@
             if(res.vacancy.is_creator === false){
                 $('#modal_footer').prepend('<a href="javascript:void(0)" class="btn btn-primary" style="left: 10px; position: absolute;">Написать работодателю</a>');
             }
+            if(res.is_favorite){
+                $('#modal_footer').prepend('<button type="button" id="fv1" onclick="makeUnfavoriteJson(' + id + ')" type="button" class="btn btn-warning">В избранном</button>');
+            }else{
+                $('#modal_footer').prepend('<button id="fv2" onclick="makeFavoriteJson(' + id + ')" class="btn btn-outline-secondary"> В избранное</button>');
+            }
             $('#spinner').hide();
         });
     }
     function closeModal(){
         $('#jq_modal').modal('hide');
         $('#modal_text').empty();
+        $('#fv2').remove();$('#fv1').remove();
     }
-    function clearText(){
+    function clearText(event){
+        if(event.target.id === "fv2" || event.target.id === "fv1"){
+            return;
+        }
         $('#modal_text').empty();
+        $('#fv2').remove();$('#fv1').remove();
+    }
+
+    function makeUnfavoriteJson(id){
+        let data = {
+            id: id,
+            _token: "{{csrf_token()}}"
+        }
+        let url = "/make_unfav";
+        $.post(url, data, function (res){
+            $('#fv1').remove();
+            $('#modal_footer').prepend('<button id="fv2" onclick="makeFavoriteJson(' + id + ')" class="btn btn-outline-secondary"> В избранное</button>');
+        });
+    }
+    function makeFavoriteJson(id){
+        let data = {
+            id: id,
+            _token: "{{csrf_token()}}"
+        }
+        let url = "/make_fav";
+        $.post(url, data, function (res){
+            $('#fv2').remove();
+            $('#modal_footer').prepend('<button type="button" id="fv1" onclick="makeUnfavoriteJson(' + id + ')" type="button" class="btn btn-warning">В избранном</button>');
+        });
     }
 </script>
