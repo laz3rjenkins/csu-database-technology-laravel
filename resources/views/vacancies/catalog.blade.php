@@ -65,7 +65,7 @@
             _token: "{{csrf_token()}}",
             id: id
         };
-        let url = "/make_unfav/" + id;
+        let url = "/make_unfav";
         $.post(url, data, function (res){
             window.location.reload();
         });
