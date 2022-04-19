@@ -144,7 +144,7 @@ class VacancyController extends Controller
     }
 
     public function favList(){
-        $vacancies = Auth::user()->favvacs();
+        $vacancies = Auth::user()->favvacs()->orderBy('created_at', 'desc');
         $vacsCount = $vacancies->count();
         $vacancies = $vacancies->paginate(5);
         return view('vacancies.favorites',
