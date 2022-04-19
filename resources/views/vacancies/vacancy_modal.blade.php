@@ -1,4 +1,4 @@
-<div onclick="clearText(event)" class="modal fade" id="jq_modal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="jq_modal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,7 +51,11 @@
             $('#spinner').hide();
         });
     }
-    function closeModal(){
+
+    $("#jq_modal").on("hidden.bs.modal", function () {
+        closeModal(event);
+    });
+    function closeModal(event){
         $('#jq_modal').modal('hide');
         $('#modal_text').empty();
         $('#fv2').remove();$('#fv1').remove();

@@ -27,16 +27,18 @@ Route::group(['middleware'=>['check_auth']], function(){
     Route::post('/set_admin', [ProfileController::class, 'setAdmin'])->name('setadmin');
     Route::post('/disable_admin', [ProfileController::class, 'disableAdmin'])->name('disadmin');
 
-    //todo: защитить мидлевейром работодателя
     //вакансии
-    Route::get('/vacancies/add', [VacancyController::class, 'addVacancyView'])->name('add_vacancy_view');
+    Route::get('/vacancies/add', [VacancyController::class, 'addVacancyView'])->name('add_vacancy_view')
+        ->middleware('is_jobgiver');
     Route::get('/vacancies', [VacancyController::class, 'showVacancies'])->name('vacancy_show');
-    Route::post('/vacancies/add_item', [VacancyController::class, 'addVacancyToTable'])->name('add_vacancy_item');
+    Route::post('/vacancies/add_item', [VacancyController::class, 'addVacancyToTable'])->name('add_vacancy_item')
+        ->middleware('is_jobgiver');
     Route::post('/vacancies/delete/{id}', [VacancyController::class, 'deleteVacancy'])->name('delete_vac');
     Route::post('/get_vacancy/{id}', [VacancyController::class, 'getVacById'])->name('get_vac_item');
     Route::post('/make_fav', [VacancyController::class, 'makeFav'])->name('make_fav');
     Route::post('/make_unfav', [VacancyController::class, 'makeUnfav'])->name('make_unfav');
     Route::post('/update_vacancy', [VacancyController::class, 'updateVacancy']);
+    Route::get('/favorites', [VacancyController::class, 'favList'])->name('favs');
 });
 
 //Route::post('/fake_users', [LoginController::class, 'FakeUsers']);

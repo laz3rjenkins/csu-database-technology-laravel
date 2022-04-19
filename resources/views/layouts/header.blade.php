@@ -19,7 +19,7 @@
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="{{route('profile')}}">Личный кабинет</a></li>
-                    <li><a class="dropdown-item" href="#">Избранные вакансии</a></li>
+                    <li><a class="dropdown-item" href="{{route('favs')}}">Избранные вакансии</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="javascript:void(0)" onclick="logout()">Выйти</a></li>
                 </ul>

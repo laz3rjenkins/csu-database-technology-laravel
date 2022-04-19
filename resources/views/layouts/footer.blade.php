@@ -3,7 +3,7 @@
         <li class="nav-item"><a href="{{route('main_page')}}" class="nav-link px-2 text-muted">Новости</a></li>
         <li class="nav-item"><a href="{{route('vacancy_show')}}" class="nav-link px-2 text-muted">Каталог вакансий</a></li>
         <li class="nav-item"><a href="{{route('profile')}}" class="nav-link px-2 text-muted">Личный кабинет</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Избранные вакансии</a></li>
+        <li class="nav-item"><a href="{{route('favs')}}" class="nav-link px-2 text-muted">Избранные вакансии</a></li>
     </ul>
     <p class="text-center text-muted">&copy; 2022 Милехин Алексей МТ-301</p>
 </footer>

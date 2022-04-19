@@ -142,4 +142,15 @@ class VacancyController extends Controller
             ]);
         return response()->json(['status' => 200]);
     }
+
+    public function favList(){
+        $vacancies = Auth::user()->favvacs();
+        $vacsCount = $vacancies->count();
+        $vacancies = $vacancies->paginate(5);
+        return view('vacancies.favorites',
+        [
+            'vacancies' => $vacancies,
+            'vacsCount' => $vacsCount
+        ]);
+    }
 }
