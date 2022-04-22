@@ -10,7 +10,7 @@
                 @if(\Illuminate\Support\Facades\Auth::user()->isJobGiver())
                     <li><a href="{{route('add_vacancy_view')}}" class="nav-link px-2 link-dark">Создать вакансию</a></li>
                 @endif
-                <li><a href="#" class="nav-link px-2 link-dark">Почта</a></li>
+                <li><a href="{{route('my_mails')}}" class="nav-link px-2 link-dark">Почта</a></li>
             </ul>
 
             <div class="dropdown text-end">
@@ -27,7 +27,15 @@
         </div>
     </div>
 </header>
-
+<style>
+    .mark{
+        background-color: red;
+        border: 1px solid red;
+        border-radius: 100%;
+        width: 5px;
+        height: 5px;
+    }
+</style>
 <script>
     function logout(){
         let data = {

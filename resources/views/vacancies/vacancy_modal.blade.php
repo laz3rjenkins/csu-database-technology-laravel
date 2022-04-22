@@ -36,12 +36,13 @@
         }
         let url = "/get_vacancy/" + id;
         $.post(url, data, function (res){
+            let urlform = '?jobgiver_id=' + res.vacancy.author_id.toString() + '&vacancy_id=' + res.vacancy.id.toString();
             $('#modal_title').text(res.vacancy.name);
             $('#modal_text').append('<p class="small-text disabled">' + res.vacancy.company_name  + '</p>'
                 + '<p class="small-text disabled">требуемый опыт: ' + res.vacancy.expirience  + '</p>'
                 +'<p class="small-text disabled">заработная плата: ' + res.vacancy.salary  + ' рублей</p>' + res.vacancy.description)
             if(res.vacancy.is_creator === false){
-                $('#modal_footer').prepend('<a href="javascript:void(0)" class="btn btn-primary" style="left: 10px; position: absolute;">Написать работодателю</a>');
+                $('#modal_footer').prepend('<a href="/sendmail/' + urlform + '" class="btn btn-primary" style="left: 10px; position: absolute;">Написать работодателю</a>');
             }
             if(res.is_favorite){
                 $('#modal_footer').prepend('<button type="button" id="fv1" onclick="makeUnfavoriteJson(' + id + ')" type="button" class="btn btn-warning">В избранном</button>');

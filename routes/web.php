@@ -5,6 +5,7 @@ use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\LoginController;
+use App\Http\Controllers\MailController;
 
 
 //регистрация и авторизация
@@ -39,6 +40,11 @@ Route::group(['middleware'=>['check_auth']], function(){
     Route::post('/make_unfav', [VacancyController::class, 'makeUnfav'])->name('make_unfav');
     Route::post('/update_vacancy', [VacancyController::class, 'updateVacancy']);
     Route::get('/favorites', [VacancyController::class, 'favList'])->name('favs');
+
+    //почта
+    Route::get('/mail/my', [MailController::class, 'index'])->name('my_mails');
+    Route::get('/sendmail', [MailController::class, 'sendMailView'])->name('send_mail_view');
+    Route::post('/send_mail', [MailController::class, 'sendMail'])->name('send_mail');
 });
 
 //Route::post('/fake_users', [LoginController::class, 'FakeUsers']);
