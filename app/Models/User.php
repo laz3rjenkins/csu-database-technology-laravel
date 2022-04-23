@@ -55,6 +55,13 @@ class User extends Authenticatable
         return $this->jobgiver;
     }
 
+    public function hasUnreadMail() : bool{
+        $unreadMailsCount = $this->receivedMails()
+            ->where('is_read', '=', '0')
+            ->count();
+        return $unreadMailsCount > 0;
+    }
+
     public function vacancies(){
         return $this->hasMany(Vacancy::class, 'author_id');
     }
@@ -63,5 +70,13 @@ class User extends Authenticatable
         return $this->hasMany(FavVacs::class)
             ->join('vacancies', 'vac_id', 'vacancies.id')
             ->select('vacancies.*');
+    }
+
+    public function receivedMails(){
+        return $this->hasMany(MailBox::class, 'recipient', 'id');
+    }
+
+    public function sentMails(){
+        return $this->hasMany(MailBox::class, 'sender_id', 'id');
     }
 }

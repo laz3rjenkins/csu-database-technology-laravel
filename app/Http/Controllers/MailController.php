@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MailBox;
 use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
@@ -10,7 +11,23 @@ use function GuzzleHttp\Promise\all;
 class MailController extends Controller
 {
     public function index(){
-        return view('mail.mymailbox');
+        $usersMail = auth()->user()
+            ->receivedMails()->with(['sender'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $usersMail = $this->fixMAilTextLen($usersMail);
+        return view('mail.mymailbox',[
+            'mail' => $usersMail
+        ]);
+    }
+
+    public function fixMAilTextLen($mails){
+        foreach ($mails as $msg){
+            if(strlen($msg->mail_text) >= 157){
+                $msg->mail_text = mb_substr($msg->mail_text, 0, 157) . "...";
+            }
+        }
+        return $mails;
     }
 
     public function sendMailView(Request $request){
@@ -27,11 +44,58 @@ class MailController extends Controller
         ]);
     }
 
-    /*поля у модели будут
-    айди, айди автора письма, айди получателя, текст письма, тема, таймстампсы, прочитано или нет
-    свзять их по полученные.отправленные как один ко многим
-    */
     public function sendMail(Request $request){
-        dd($request->all());
+        $recipientId = $request->get('recipient_id');
+        $vacancyId = $request->get('vacancy_id');
+        $senderId = auth()->id();
+
+        MailBox::create([
+            'sender_id'=>$senderId,
+            'is_read' => 0,
+            'subject' => $request->get('subject'),
+            'mail_text' => $request->get('text'),
+            'recipient' => $recipientId,
+        ]);
+        return redirect(route('vacancy_show'));
+    }
+
+    public function unreadMailList(){
+        $usersMail = auth()->user()
+            ->receivedMails()->with(['sender'])
+            ->where('is_read', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $usersMail = $this->fixMAilTextLen($usersMail);
+        return view('mail.unread',
+        [
+            'mail' => $usersMail
+        ]);
+    }
+
+    public function sentMailList(){
+        $userId = auth()->id();
+        $usersMail = auth()->user()
+            ->sentMails()
+            ->where('sender_id', '=', $userId)
+            ->with(['recipientObject'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $usersMail = $this->fixMAilTextLen($usersMail);
+        return view('mail.sent',[
+            'mail' => $usersMail
+        ]);
+    }
+
+    public function getMail(Request $request){
+        $mailId = $request->get('id');
+        $mail = MailBox::where('id', '=', $mailId)
+            ->with(['sender', 'recipientObject'])
+            ->first();
+        $mail->is_read = 1;
+        $mail->save();
+        return response()->json([
+            'mail' => $mail,
+            'user_id' => auth()->id()
+            ]);
     }
 }

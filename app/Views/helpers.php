@@ -11,3 +11,9 @@ if (!function_exists('isFavoriteVacancie')) {
         return false;
     }
 }
+
+if(!function_exists('beautyDate')){
+    function beautyDate($timestamp){
+        return date('d.m.Y H:i', strtotime($timestamp));
+    }
+}

@@ -1,11 +1,11 @@
 @extends('mail.index')
 @section('includes')
-    <title>Мои сообщения</title>
+    <title>Непрочитанные письма</title>
 @endsection
 @section('content')
     <div class="container" style="width: 80%; min-height: 500px;">
         <a style="margin-bottom: 15px; margin-right: 15px;" class="btn btn-primary" href="{{route('sent_mail')}}">Отправленные</a>
-        <a style="margin-bottom: 15px;" class="btn btn-primary" href="{{route('unread_mail')}}">Непрочитанные</a>
+        <a style="margin-bottom: 15px; margin-right: 15px;" class="btn btn-primary" href="{{route('my_mails')}}">Назад</a>
         @foreach($mail as $letter)
             <div class="card" style="margin-top:10px;" id="{{$letter->id}}" onclick="openMailModal(id)">
                 <h5 style="display: flex;justify-content: space-between;" class="card-header">От {{$letter['sender']->first_name}} {{$letter['sender']->last_name}}
@@ -25,7 +25,7 @@
         @endforeach
         @if(count($mail) == 0)
             <div style="border-radius: 15px;padding: 15px;margin-bottom: 15px;text-align: center;">
-                Нет входящих писем.
+                Нет непрочитанных писем.
             </div>
         @endif
     </div>
