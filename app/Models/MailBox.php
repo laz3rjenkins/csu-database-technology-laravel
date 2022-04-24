@@ -15,7 +15,8 @@ class MailBox extends Model
         'recipient',
         'mail_text',
         'subject',
-        'is_read'
+        'is_read',
+        'reply_to'
     ];
 
     public function user(){

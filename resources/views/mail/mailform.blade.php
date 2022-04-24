@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <div class="container" style="width: 80%; min-height: 500px;">
+        <h3>Отправить сообщение</h3>
         <form action="{{route('send_mail')}}" method="POST">
             @csrf
             <div class="form-group">

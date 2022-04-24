@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" id="reply" type="button" class="btn btn-warning" data-dismiss="modal">Ответить</a>
+                <a id="reply" type="button" class="btn btn-warning" data-dismiss="modal">Ответить</a>
                 <button onclick="closeMailModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
@@ -49,6 +49,8 @@
         let url = "/get_mail";
         $.post(url, data, function (res){
             console.log(res);
+            let formUrl = '/mail/reply?to=' + res.mail.sender_id + '&mail_id=' + res.mail.id;
+            $('#reply').attr('href', formUrl)
             if(res.user_id === res.mail.sender_id){
                 $('#reply').remove();
             }

@@ -6,15 +6,17 @@ use App\Models\MailBox;
 use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use function GuzzleHttp\Promise\all;
 
 class MailController extends Controller
 {
+    public $mailPaginationLimit = 8;
     public function index(){
         $usersMail = auth()->user()
             ->receivedMails()->with(['sender'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate($this->mailPaginationLimit);
         $usersMail = $this->fixMAilTextLen($usersMail);
         return view('mail.mymailbox',[
             'mail' => $usersMail
@@ -48,6 +50,7 @@ class MailController extends Controller
         $recipientId = $request->get('recipient_id');
         $vacancyId = $request->get('vacancy_id');
         $senderId = auth()->id();
+        $is_reply = $request->get('is_reply', null) == null ? null : $vacancyId;
 
         MailBox::create([
             'sender_id'=>$senderId,
@@ -55,6 +58,7 @@ class MailController extends Controller
             'subject' => $request->get('subject'),
             'mail_text' => $request->get('text'),
             'recipient' => $recipientId,
+            'reply_to' => intval($is_reply)
         ]);
         return redirect(route('vacancy_show'));
     }
@@ -64,7 +68,7 @@ class MailController extends Controller
             ->receivedMails()->with(['sender'])
             ->where('is_read', '=', 0)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate($this->mailPaginationLimit);
         $usersMail = $this->fixMAilTextLen($usersMail);
         return view('mail.unread',
         [
@@ -79,7 +83,7 @@ class MailController extends Controller
             ->where('sender_id', '=', $userId)
             ->with(['recipientObject'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate($this->mailPaginationLimit);
         $usersMail = $this->fixMAilTextLen($usersMail);
         return view('mail.sent',[
             'mail' => $usersMail
@@ -91,11 +95,23 @@ class MailController extends Controller
         $mail = MailBox::where('id', '=', $mailId)
             ->with(['sender', 'recipientObject'])
             ->first();
-        $mail->is_read = 1;
-        $mail->save();
+        if($mail->recipient == auth()->id()){
+            $mail->is_read = 1;
+            $mail->save();
+        }
         return response()->json([
             'mail' => $mail,
             'user_id' => auth()->id()
             ]);
+    }
+
+    public function replyView(Request $request){
+        $mail = MailBox::where('id', '=', $request->get('mail_id'))->with('recipientObject')->first();
+        $recipientUser = User::where('id', '=', $request->get('to'))->first();
+        return view('mail.reply_from',
+        [
+            'recipient' => $recipientUser,
+            'mail' => $mail
+        ]);
     }
 }

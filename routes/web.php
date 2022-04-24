@@ -48,6 +48,7 @@ Route::group(['middleware'=>['check_auth']], function(){
     Route::get('/mail/my/unread', [MailController::class, 'unreadMailList'])->name('unread_mail');
     Route::get('/mail/my/sent', [MailController::class, 'sentMailList'])->name('sent_mail');
     Route::post('/get_mail', [MailController::class, 'getMail'])->name('get_mail');
+    Route::get('/mail/reply', [MailController::class, 'replyView']);
 });
 //TODO:: сделать ивент на получение нового письма
 //Route::post('/fake_users', [LoginController::class, 'FakeUsers']);
