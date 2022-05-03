@@ -15,6 +15,12 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$letter->subject}}</h5>
                     <p class="card-text">{{$letter->mail_text}}</p>
+                    @if(is_null($letter->reply_to) == false)
+                        <div style="background-color: #b6b6b6; border-radius: 5px; margin: 0 0 15px 0; border: 6px solid #b6b6b6; display: grid;">
+                            <span id="big-message-from">Ответ на ваше:</span>
+                            <span id="big-message-to">{{$letter['repliedLetter']->mail_text}}</span>
+                        </div>
+                    @endif
                     <a href="#" class="btn btn-primary">Прочитать</a>
                 </div>
                 @if($letter->is_read == false)

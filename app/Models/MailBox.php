@@ -27,6 +27,10 @@ class MailBox extends Model
         return $this->hasOne(User::class, 'id', 'sender_id');
     }
 
+    public function repliedLetter(){
+        return $this->hasOne(MailBox::class, 'id', 'reply_to');
+    }
+
     public function recipientObject(){
         return $this->hasOne(User::class, 'id', 'recipient');
     }

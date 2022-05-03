@@ -14,7 +14,7 @@ class MailController extends Controller
     public $mailPaginationLimit = 8;
     public function index(){
         $usersMail = auth()->user()
-            ->receivedMails()->with(['sender'])
+            ->receivedMails()->with(['sender', 'repliedLetter'])
             ->orderBy('created_at', 'desc')
             ->paginate($this->mailPaginationLimit);
         $usersMail = $this->fixMAilTextLen($usersMail);
@@ -50,7 +50,7 @@ class MailController extends Controller
         $recipientId = $request->get('recipient_id');
         $vacancyId = $request->get('vacancy_id');
         $senderId = auth()->id();
-        $is_reply = $request->get('is_reply', null) == null ? null : $vacancyId;
+        $is_reply = $request->get('is_reply', null) == null ? null : intval($vacancyId);
 
         MailBox::create([
             'sender_id'=>$senderId,
@@ -58,7 +58,7 @@ class MailController extends Controller
             'subject' => $request->get('subject'),
             'mail_text' => $request->get('text'),
             'recipient' => $recipientId,
-            'reply_to' => intval($is_reply)
+            'reply_to' => $is_reply
         ]);
         return redirect(route('vacancy_show'));
     }
