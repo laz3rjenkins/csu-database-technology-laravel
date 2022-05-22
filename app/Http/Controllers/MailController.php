@@ -6,6 +6,7 @@ use App\Models\MailBox;
 use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use function GuzzleHttp\Promise\all;
 
@@ -108,6 +109,8 @@ class MailController extends Controller
     public function replyView(Request $request){
         $mail = MailBox::where('id', '=', $request->get('mail_id'))->with('recipientObject')->first();
         $recipientUser = User::where('id', '=', $request->get('to'))->first();
+        if(Auth::id() != $mail['recipientObject']->id)
+            return redirect()->to(route('main_page'));
         return view('mail.reply_from',
         [
             'recipient' => $recipientUser,

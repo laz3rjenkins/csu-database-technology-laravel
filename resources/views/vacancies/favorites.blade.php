@@ -1,6 +1,6 @@
 @extends('vacancies.index')
 @section('includes')
-
+<title>Избранное</title>
 @endsection
 
 

@@ -1,7 +1,7 @@
 @extends('vacancies.index')
 
 @section('includes')
-
+<title>Каталог вакансий</title>
 @endsection
 
 @section('content')

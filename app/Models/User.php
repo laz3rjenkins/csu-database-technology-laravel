@@ -69,7 +69,7 @@ class User extends Authenticatable
     public function favvacs(){
         return $this->hasMany(FavVacs::class)
             ->join('vacancies', 'vac_id', 'vacancies.id')
-            ->select('vacancies.*');
+            ->select('vacancies.*')->where('vacancies.deleted_at', '=', null);
     }
 
     public function receivedMails(){

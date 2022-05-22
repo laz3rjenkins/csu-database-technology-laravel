@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 <div>
-    <form method="POST" action="{{route('auth')}}" class="form">
+    <form method="POST" action="{{route('auth')}}" class="form" style="padding: 50px;">
         <input type="hidden" name="_token" value="{{csrf_token()}}" />
         <div id="container" class="container_own">
             <h1>Авторизация</h1>
