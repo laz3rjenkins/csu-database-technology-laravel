@@ -5,5 +5,5 @@
         <li class="nav-item"><a href="{{route('profile')}}" class="nav-link px-2 text-muted">Личный кабинет</a></li>
         <li class="nav-item"><a href="{{route('favs')}}" class="nav-link px-2 text-muted">Избранные вакансии</a></li>
     </ul>
-    <p class="text-center text-muted">&copy; 2022 Милехин Алексей МТ-301</p>
+    <p class="text-center text-muted">&copy; 2022 МТ-301 <a target="_blank" href="https://github.com/laz3rjenkins/tdb_csu">GitHub</a></p>
 </footer>
